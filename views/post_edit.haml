@@ -1,0 +1,15 @@
+%form{:action => "/post/edit/#{@post.id}", :method => "post"}
+  %br
+  %input{:name => "title", :style => "width: 100%", :value => "#{@post.title}"}
+  %textarea#textarea{:name => "content", :style => "width: 100%; height: 150px;"}
+    #{@post.content}
+  %input{:name => "tags", :style => "width: 100%", :value => "#{@post.tags.collect{|tag| tag.content}.join(', ')}"}
+  
+  %center
+    %button{:type => "submit"}
+      Publish
+    %button
+      Cancel
+
+%br
+.hr

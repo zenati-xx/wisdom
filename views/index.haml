@@ -1,0 +1,23 @@
+-if @posts.empty?
+  .post
+    %h2 Empty database.
+    
+-@posts.each do |post|
+  .post
+    %h2
+      %a{:href => "#{post.full_url}", :title => "#{post.title}"} #{post.title}
+    .date
+      #{post.created_at.day} #{month(post.created_at.month)} #{post.created_at.year}
+    %p
+      #{post.content}
+
+    .meta
+      .tags
+        %ul
+          %li
+            -post.tags.each do |tag|
+              %a{:href => "/tag/#{tag.content}"}
+                #{tag.content}
+      .permalink
+        %a{:href => "#{post.full_url}", :title => "Permalink"} Permalink
+  .hr

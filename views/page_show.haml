@@ -1,0 +1,25 @@
+.post
+  %h2
+    %a{:title => "#{@page.title}"} #{@page.title}
+  .date
+    #{@page.created_at.day} #{month(@page.created_at.month)} #{@page.created_at.year}
+    %br
+
+    -if auth
+      %a{:title => 'Edit', :href => "/page/edit/#{@page.id}"}
+        %img{:src => '/icons/bullet_yellow.png'}
+      %a{:title => 'Delete', :href => "/page/delete/#{@page.id}"}
+        %img{:src => '/icons/bullet_red.png'}
+      -if @page.publish
+        %a{:title => 'Visible', :href => "/page/unpublish/#{@page.id}"}
+          %img{:src => '/icons/bullet_green.png'}
+      -else
+        %a{:title => 'Not visible', :href => "/page/publish/#{@page.id}"}
+          %img{:src => '/icons/bullet_purple.png'}
+  %p
+    #{@page.content}
+
+  .meta
+    .permalink
+      %a{:href => "/page/#{@page.slug}", :title => "Permalink"} Permalink
+.hr

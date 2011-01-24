@@ -1,0 +1,14 @@
+%form{:action => "/post/new", :method => "post"}
+  %br
+  %input{:name => "title", :style => "width: 100%", :title => "Post title"}
+  %textarea#textarea{:name => "content", :style => "width: 100%; height: 150px;"}
+  %input{:name => "tags", :style => "width: 100%"}
+  
+  %center
+    %button{:type => "submit"}
+      Publish
+    %button
+      Cancel
+
+%br
+.hr

@@ -1,0 +1,16 @@
+.post
+  %h2
+    Login
+    
+%form{:action => "/login", :method => "post"}
+  %center
+    %input{:type => 'text', :name => "username", :value => 'Username'}
+    %input{:type => 'password', :name => "password", :value => 'Password'}  
+    
+    %br
+    %br
+    %button{:type => "submit"}
+      Login
+
+%br
+.hr

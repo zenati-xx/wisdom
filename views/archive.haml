@@ -1,0 +1,11 @@
+.post
+  -if @posts.empty?
+    %h2 Empty database.
+  -else
+    %h2 Archive
+  .hr
+    
+-@posts.each do |post|
+  .post
+    %h2
+      %a{:href => "#{post.full_url}", :title => "#{post.title}"} #{post.title}
