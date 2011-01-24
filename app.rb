@@ -6,13 +6,13 @@ require 'dm-postgres-adapter'
 #require 'dm-sqlite-adapter'
 
 enable :sessions
-DataMapper.setup(:default, 'postgres://vurfuwjgak:G9GxPgnXqkSYXUBJkF6e@ec2-50-16-226-121.compute-1.amazonaws.com/vurfuwjgak')
+DataMapper.setup(:default, 'database url')
 #DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db.db") #testing with sqlite locally, comment before deploying
 
 configure do
   set :site_title, 'Wisdom'
   set :site_description, 'Here description'
-  set :site_author, 'Yassine'
+  set :site_author, 'Yassine Zenati'
   
   set :site_username, 'Username'
   set :site_password, 'Password'
