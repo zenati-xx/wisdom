@@ -305,6 +305,5 @@ end
 get '/archive' do
   @posts = Post.all(:publish => true, :order => [:created_at.desc]) if !auth
   @posts = Post.all(:order => [:created_at.desc]) if auth
-  
   haml :archive, :format => :html5
 end
