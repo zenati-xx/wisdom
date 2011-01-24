@@ -4,7 +4,6 @@ Important! Wisdom is still alpha, use it for testing and not for production.
 
 1) git clone git://github.com/zenati/wisdom.git
 2) cd wisdom
-3) heroku config --long (to retreive your Postgres username and password)
 3) open app.rb and change your blog and database settings.
 4) git add .
 5) git commit -m "my new blog"

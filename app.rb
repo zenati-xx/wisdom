@@ -6,7 +6,7 @@ require 'dm-postgres-adapter'
 #require 'dm-sqlite-adapter'
 
 enable :sessions
-DataMapper.setup(:default, 'database url')
+DataMapper.setup(:default, ENV['DATABASE_URL'])
 #DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db.db") #testing with sqlite locally, comment before deploying
 
 configure do
@@ -174,7 +174,7 @@ post '/post/edit/:id' do |id|
   post.update(
     :title => title,
     :content => params[:content],
-    :slug => make_slug(title),
+    :slug => make_slug(title)
   )
   
   post.tags.all.destroy
@@ -260,7 +260,7 @@ post '/page/edit/:id' do |id|
   page.update(
     :title => title,
     :content => params[:content],
-    :slug => make_slug(title),
+    :slug => make_slug(title)
   )
   
   redirect "/page/#{page.slug}"
