@@ -1,14 +1,18 @@
 .post
   %h2
     Login
-    
+
 %form{:action => "/login", :method => "post"}
+  %fieldset
+    %legend
+      Username
+    %input{:type => 'text', :name => "username", :style => "width: 100%"}
+  %fieldset
+    %legend
+      Password
+    %input{:type => 'password', :name => "password", :style => "width: 100%"}  
+  
   %center
-    %input{:type => 'text', :name => "username", :value => 'Username'}
-    %input{:type => 'password', :name => "password", :value => 'Password'}  
-    
-    %br
-    %br
     %button{:type => "submit"}
       Login
 

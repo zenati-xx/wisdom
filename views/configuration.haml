@@ -1,0 +1,34 @@
+%form{:action => "/configuration", :method => "post"}
+  %fieldset{:title => 'Step 1'}
+    %legend
+      Database
+    %input{:name => "database", :style => "width: 100%", :value => "#{ENV['DATABASE_URL']}"}
+	
+  %fieldset{:title => 'Step 2'}
+    %legend
+      Site Title
+    %input{:name => "title", :style => "width: 100%"}
+    
+  %fieldset{:title => 'Step 3'}
+    %legend
+      Site Description
+    %input{:name => "description", :style => "width: 100%"}
+    
+  %fieldset{:title => 'Step 4'}
+    %legend
+      Site Author
+    %input{:name => "author", :style => "width: 100%"}
+    
+  %fieldset{:title => 'Step 5'}
+    %legend
+      Username
+    %input{:name => "username", :style => "width: 100%"}
+    
+  %fieldset{:title => 'Step 5'}
+    %legend
+      Password
+    %input{:name => "password", :style => "width: 100%"}
+  
+  %input{:type => "submit", :value => 'Save'}
+%br
+.hr

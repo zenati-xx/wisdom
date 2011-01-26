@@ -1,4 +1,4 @@
-!!! Strict
+﻿!!! Strict
 %html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
@@ -11,12 +11,12 @@
     %link{:href => "/feed", :rel => "alternate", :type => "application/rss+xml"}
     %meta{:content => "Description", :name => "description"}
     %title
-      #{settings.site_title}
+      #{Configuration.first.nil? ? 'Configuration' : Configuration.first.site_title}
       
     :javascript
       Cufon.replace('h1');
       Cufon.replace('h2');
-      
+	  
     :javascript
       function FloatMenu(){
         var animationSpeed=1500;
@@ -90,10 +90,10 @@
     
     #frame
       .title
-        %a{:href => "/", :title => "#{settings.site_title}"}
-          %h1 #{settings.site_title}
+        %a{:href => "/", :title => "#{Configuration.first.nil? ? 'Configuration' : Configuration.first.site_title}"}
+          %h1 #{Configuration.first.nil? ? 'Wisdom' : Configuration.first.site_title}
         .description
-          #{settings.site_description}
+          #{Configuration.first.nil? ? 'Configuration' : Configuration.first.site_description}
           
         .posts
           .hr

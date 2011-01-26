@@ -1,4 +1,4 @@
-require 'rubygems'
+﻿require 'rubygems'
 require 'haml'
 require 'sinatra'
 require 'data_mapper'
@@ -9,15 +9,18 @@ enable :sessions
 DataMapper.setup(:default, ENV['DATABASE_URL'])
 #DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db.db") #testing with sqlite locally, comment before deploying
 
-configure do
-  set :site_title, 'Wisdom'
-  set :site_description, 'Here description'
-  set :site_author, 'Yassine Zenati'
+class Configuration
+  include DataMapper::Resource
   
-  set :site_username, 'Username'
-  set :site_password, 'Password'
+  property :id, Serial
+  property :site_title, String
+  property :site_description, Text
+  property :site_author, String
   
-  set :posts_per_page, 10
+  property :site_username, String
+  property :site_password, String
+  
+  property :posts_per_page, Integer
 end
 
 class Post
@@ -60,6 +63,7 @@ class Tag
 end
 
 DataMapper.finalize
+DataMapper.auto_migrate!
 DataMapper.auto_upgrade!
 
 helpers do
@@ -82,23 +86,50 @@ def month(month)
   end
 end
 
+def configuration_created
+  return false if Configuration.count == 0
+  return true if Configuration.count > 0
+end
+
 def make_slug(title)
   return title.downcase.gsub(/ /, '_').gsub(/[^a-z0-9_]/, '').squeeze('_')
 end
 
 before do
+  redirect '/configuration' if !configuration_created && request.path_info != '/configuration'
   @pages = Page.all(:publish => true) if !auth
   @pages = Page.all if auth
 end
 
 get '/' do
-  @posts = Post.all(:publish => true, :order => [:created_at.desc]).first(settings.posts_per_page) if !auth
-  @posts = Post.all(:order => [:created_at.desc]).first(settings.posts_per_page) if auth
+  @posts = Post.all(:publish => true, :order => [:created_at.desc]).first(Configuration.first.posts_per_page) if !auth
+  @posts = Post.all(:order => [:created_at.desc]).first(Configuration.first.posts_per_page) if auth
   haml :index, :format => :html5
 end
 
+get '/configuration' do
+  haml :configuration, :format => :html5
+end
+
+post '/configuration' do
+  if params[:database].empty? or params[:title].empty? or params[:description].empty? or params[:username].empty? or params[:password].empty?
+    redirect '/configuration' 
+  end
+  
+  Configuration.create(
+    :site_title => params[:title],
+    :site_description => params[:description],
+    :site_author => params[:author],
+    :site_username => params[:username],
+    :site_password => params[:password],
+    :posts_per_page => 10
+  )
+  
+  redirect '/'
+end
+
 get '/feed' do
-  @posts = Post.all(:publish => true, :order => [:created_at.desc]).first(settings.posts_per_page)
+  @posts = Post.all(:publish => true, :order => [:created_at.desc]).first(Configuration.first.posts_per_page)
   builder :feed
 end
 
@@ -109,7 +140,7 @@ end
 
 post '/login' do
   redirect '/' if auth
-  redirect '/login' if settings.site_username != params[:username] or settings.site_password != params[:password]
+  redirect '/login' if Configuration.first.site_username != params[:username] or Configuration.first.site_password != params[:password]
   
   session[:bazinga] = true
   redirect '/'
