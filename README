@@ -4,8 +4,8 @@ Important! Wisdom is still alpha, use it for testing and not for production.
 
 1) git clone git://github.com/zenati/wisdom.git
 2) cd wisdom
-4) git add .
-5) git commit -m "my new blog"
-6) heroku create
-7) git push heroku master
-8) heroku open
+3) git add .
+4) git commit -m "my new blog"
+5) heroku create
+6) git push heroku master
+7) heroku open
